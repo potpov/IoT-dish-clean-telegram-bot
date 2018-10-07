@@ -1,0 +1,5 @@
+flask
+python-telegram-bot
+flask_restful
+flask_wtf
+requests_toolbelt

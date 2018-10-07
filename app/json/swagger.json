@@ -1,0 +1,98 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "api for the dish-clean IoT application"
+  },
+  "paths": {
+    "/api/newjob": {
+      "post": {
+        "description": "record a new istance of job and send a notify to users.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "secret",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "secret key for API usage."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation completed."
+          },
+          "401": {
+            "description": "API key missing."
+          }
+        }
+      }
+    },
+    "/api/jobcomplete": {
+      "post": {
+        "description": "record a new istance of completed job and send a notify to users",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "secret",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "secret key for API usage."
+          },
+          {
+            "name": "user",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "The name of the user who completed the job."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation completed or alert sent via telegram if user is not in DB."
+          },
+          "401": {
+            "description": "API key missing."
+          }
+        }
+      }
+    },
+    "/api/alert": {
+      "post": {
+        "description": "send a message to the users reminding them to wash the dishes.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "secret",
+            "in": "formData",
+            "type": "string",
+            "required": true,
+            "description": "secret key for API usage."
+          },
+          {
+            "name": "time",
+            "in": "formData",
+            "type": "integer",
+            "required": true,
+            "description": "time past since dishes are dirty, in milliseconds."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "operation completed and message sent."
+          },
+          "401": {
+            "description": "API key missing."
+          }
+        }
+      }
+    }
+  }
+}
